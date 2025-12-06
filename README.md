@@ -3,7 +3,7 @@
 Sistema desenvolvido para o desafio técnico da vaga de estágio Python/Django 2026.1
 
 **Desenvolvedor:** Kaio Cesar  
-**Tempo investido:** Aproximadamente 18 horas  
+**Tempo investido:** Aproximadamente 6 horas  
 **Data:** Dezembro 2025
 
 ## Como rodar o projeto
