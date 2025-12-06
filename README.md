@@ -1,174 +1,155 @@
-# 🎓 Sistema Academia Dev Python / Devs do RN
+# Sistema de Gestão - Academia Dev Python
 
-Sistema desenvolvido como parte do desafio técnico para vaga de estágio.
+Sistema desenvolvido para o desafio técnico da vaga de estágio Python/Django 2026.1
 
-**Desenvolvedor:** Kaio Cesar De Sousa Pinheiro  
-**Tempo de desenvolvimento:** ~18 horas  
+**Desenvolvedor:** Kaio Cesar  
+**Tempo investido:** Aproximadamente 18 horas  
 **Data:** Dezembro 2025
 
----
+## Como rodar o projeto
 
-## 📊 Status de Implementação
+```bash
+# 1. Clonar o repositório
+git clone <repositorio>
+cd academia-dev
 
-### ✅ Funcionalidades Completas (~75%)
+# 2. Subir com docker
+docker-compose up --build
 
-#### Backend:
-- ✅ Models com relacionamentos básicos
-- ✅ CRUD de Alunos/Associados
-- ✅ CRUD de Cursos/Anuidades
-- ✅ Sistema de matrículas/pagamentos
-- ✅ Admin do Django configurado
-- ✅ API REST básica (GET, POST)
-- ✅ Docker + PostgreSQL/MySQL funcionando
+# 3. Acessar
+# Frontend: http://localhost:8000
+# Admin: http://localhost:8000/admin
+# API: http://localhost:8000/api
+```
 
-#### Frontend:
-- ✅ Templates HTML funcionais
-- ✅ Dashboard com estatísticas
-- ✅ Formulários de cadastro
-- ✅ CSS básico responsivo
+**Credenciais do admin:** admin / admin123 (criadas automaticamente)
 
-### ⚠️ Parcialmente Implementadas (~15%)
+## O que foi implementado
 
-#### SQL Bruto:
-- ⚠️ Implementei consultas com JOIN básico
-- ❌ **Não consegui:** Agregações múltiplas (SUM + COUNT + CASE WHEN)
-- **Dificuldade:** Erro "column must appear in GROUP BY clause"
-- **Aprendi:** Conceito de GROUP BY, mas preciso praticar mais sintaxe complexa
+### Funcionalidades principais (funcionando)
 
-#### Validações:
-- ⚠️ Validações de formato (email, CPF tamanho)
-- ❌ **Não consegui:** Validação completa de CPF (dígitos verificadores)
-- **Motivo:** Conheço o conceito mas não implementei o algoritmo
+✅ **Models:**
+- Aluno (nome, email, cpf, data de ingresso)
+- Curso (nome, carga horária, valor, status)
+- Matricula (relaciona aluno e curso, controla pagamento)
 
-#### Otimização:
-- ⚠️ Queries funcionam mas podem causar N+1 problem
-- ❌ **Não consegui:** Otimizar com select_related()/prefetch_related()
-- **Aprendi:** O problema existe, mas preciso estudar mais a solução
+✅ **Admin do Django:**
+- Cadastro e listagem de alunos, cursos e matrículas
+- Busca e filtros básicos
+- Ação para marcar múltiplas matrículas como pagas
 
-### ❌ Não Implementadas (~10%)
+✅ **API REST:**
+- CRUD completo de alunos, cursos e matrículas
+- Endpoint customizado para marcar matrícula como paga
+- Listar matrículas de um aluno específico
+- Filtros básicos (por nome, status)
 
-#### Testes Automatizados:
-- **Status:** Não implementado
-- **Motivo:** Focando no tempo, priorizei funcionalidades core
-- **Experiência:** Faço testes funcionais manuais no trabalho atual
-- **Próximo passo:** Estudar TestCase do Django e implementar
+✅ **Relatórios:**
+- Dashboard HTML com estatísticas
+- Histórico do aluno com suas matrículas
+- Relatório JSON: matrículas por curso
+- Relatório JSON: total devido por aluno
+- Relatório JSON: pagamentos pendentes
 
-#### Funcionalidades Avançadas:
-- Sistema de autenticação/permissões
-- Relatórios em PDF
-- Paginação de listagens
-- Filtros avançados na API
+✅ **Docker:**
+- docker-compose funcional com web + postgres
+- Migrations automáticas
+- Criação de superusuário automática
+- Dados de exemplo carregados
 
----
+### O que fiz mas não ficou perfeito
 
-## 🎯 Decisões Técnicas
+⚠️ **SQL Bruto:**
+Consegui implementar consulta com JOIN e GROUP BY mas tive dificuldade com agregações múltiplas (SUM + COUNT + CASE WHEN juntos). O erro que recebi foi sobre "column must appear in GROUP BY clause". Entendo o conceito mas não consegui fazer funcionar. Implementei uma versão simplificada.
 
-### Por que Django/PHP Puro?
-Escolhi [Django/PHP] porque tenho experiência prévia:
-- Django: projetos na UFRN (disciplinas)
-- PHP: freelas autônomos
-- Python: mais confortável com sintaxe
+⚠️ **Otimização de queries:**
+Sei que em alguns lugares estou fazendo N+1 queries (especialmente nos relatórios onde faço loop e chamo métodos dos objetos). Pesquisei sobre select_related() e prefetch_related() mas não consegui aplicar corretamente no tempo disponível.
 
-### Por que PostgreSQL/MySQL?
-- Experiência em projetos acadêmicos
-- Docker compose facilita setup
-- Conhecimento de SQL básico
+⚠️ **Validações:**
+As validações de CPF e email são básicas (só verificam formato e tamanho). Não implementei a validação completa do CPF com os dígitos verificadores. Sei que existe o algoritmo mas focando no prazo priorizei outras coisas.
 
-### Por que Docker?
-- Experiência profissional (Clínica Oitava Rosado - infraestrutura)
-- Garante ambiente consistente
-- Facilita avaliação do projeto
+⚠️ **Frontend:**
+O CSS é bem básico. Não sou muito bom com design então deixei funcional mas simples. Em um projeto real trabalharia com alguém de front ou usaria um framework de componentes.
 
----
+### O que não implementei
 
-## 🤔 Dificuldades Encontradas
+❌ **Testes automatizados:**
+Não implementei testes unitários ou de integração. Tenho experiência com testes funcionais manuais (no trabalho faço isso durante implantações) mas não com testes automatizados. Vi pytest na faculdade mas não consegui aplicar aqui.
 
-### 1. SQL Avançado
-**Problema:** Agregações múltiplas com GROUP BY  
-**Tentativa:** Pesquisei documentação PostgreSQL e Stack Overflow  
-**Resultado:** Consegui JOIN básico mas não a versão completa  
-**Aprendizado:** Entendi que preciso praticar mais SQL complexo
+❌ **Funcionalidades extras:**
+- Paginação nas listagens grandes
+- Edição inline no admin
+- Exportar relatórios em PDF/Excel
+- Sistema de notificações
+- Logs de auditoria
 
-### 2. Otimização de Queries
-**Problema:** N+1 queries nos relatórios  
-**Tentativa:** Li sobre select_related() e prefetch_related()  
-**Resultado:** Não consegui aplicar corretamente  
-**Aprendizado:** Sei que o problema existe e onde estudar
+## Estrutura do projeto
+
+```
+academia-dev/
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+├── manage.py
+├── meu_database.sql
+├── academia/
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── core/
+    ├── models.py
+    ├── views.py
+    ├── serializers.py
+    ├── admin.py
+    ├── urls.py
+    └── templates/
+```
+
+## Tecnologias usadas
+
+- Python 3.11
+- Django 5.0
+- Django REST Framework 3.14
+- PostgreSQL 15
+- Docker & Docker Compose
+
+## Dificuldades que tive
+
+### 1. SQL complexo
+Tentei fazer uma query com múltiplas agregações mas travei. Pesquisei no Stack Overflow e na documentação do PostgreSQL mas não consegui resolver o erro do GROUP BY. Essa é uma área que preciso estudar mais.
+
+### 2. Otimização
+Percebi que algumas partes do código fazem muitas queries ao banco (N+1 problem). Sei que isso pode ser otimizado mas não consegui implementar a solução correta no prazo.
 
 ### 3. Frontend
-**Contexto:** Meu foco é backend  
-**Resultado:** CSS básico mas funcional  
-**Decisão:** Priorizei tempo no backend e APIs
+Não sou designer, então o CSS ficou bem básico. Tentei deixar limpo e funcional mas reconheço que não é meu forte.
+
+## O que aprendi fazendo esse desafio
+
+- Como estruturar um projeto Django do zero
+- Usar ViewSets do DRF pra APIs
+- Configurar Docker com múltiplos serviços
+- Relacionamentos entre models (ForeignKey)
+- Executar SQL bruto com cursor() (mesmo que não tenha ficado perfeito)
+- Priorizar funcionalidades quando tem prazo apertado
+
+## Se tivesse mais tempo
+
+- Implementaria testes automatizados (pelo menos pros models principais)
+- Corrigiria a query SQL complexa
+- Otimizaria as queries que estão causando N+1 problem
+- Melhoraria o frontend (talvez usando Bootstrap de verdade)
+- Adicionaria paginação
+- Implementaria validação completa de CPF
+
+## Observações
+
+Esse foi meu primeiro projeto Django "completo" fora da faculdade. Tentei fazer o máximo possível com o conhecimento que tenho. Sei que tem coisas que podem melhorar e estou ansioso pra aprender mais.
+
+Qualquer dúvida sobre as decisões que tomei ou como funciona alguma parte, é só perguntar!
 
 ---
 
-## 📚 O Que Aprendi
-
-### Conceitos Novos:
-- Como estruturar projeto Django do zero
-- Diferença entre ViewSets e APIView
-- Prepared statements no PDO (PHP)
-- Docker multi-container com healthcheck
-
-### Conceitos Reforçados:
-- Relacionamentos entre tabelas (ForeignKey)
-- REST API patterns
-- MVC architecture
-- Git workflow
-
-### Áreas para Aprofundar:
-- [ ] SQL avançado (agregações, subqueries, window functions)
-- [ ] Testes automatizados (pytest, unittest)
-- [ ] Otimização de queries (ORM)
-- [ ] Frontend moderno (React, Vue)
-
----
-
-## 🔄 Se Tivesse Mais Tempo
-
-### Curto Prazo (1 semana):
-1. Implementar testes automatizados básicos
-2. Corrigir SQL bruto com agregações
-3. Adicionar paginação nas listagens
-4. Melhorar validações
-
-### Médio Prazo (1 mês):
-1. Sistema de autenticação completo
-2. Otimizar todas as queries
-3. Frontend mais elaborado
-4. Deploy em produção (Heroku/Railway)
-
----
-
-## 💡 Feedback do Processo
-
-Este desafio me fez:
-- **Sair da zona de conforto:** SQL complexo e APIs REST
-- **Priorizar funcionalidades:** Foco no que agrega mais valor
-- **Documentar limitações:** Honestidade sobre o que não sei
-- **Pensar em escalabilidade:** Mesmo sem implementar tudo
-
-**Maior aprendizado:** Não preciso saber tudo, preciso saber onde aprender.
-
----
-
-## 🚀 Como Rodar
-```bash
-docker-compose up --build
-# Acesse: http://localhost:8000 (Django) ou :8080 (PHP)
-# Admin: admin / admin123
-```
-
----
-
-## 📧 Contato
-
-**Kaio Cesar De Sousa Pinheiro**  
+**Contato:**  
 Email: kaio.pinheiro.065@outlook.com  
-LinkedIn: linkedin.com/in/kaio-cesar-de-sousa-pinheiro  
-Telefone: +55 84 99183-0438
-
----
-
-**Obrigado pela oportunidade de participar do processo!**
-```
+LinkedIn: linkedin.com/in/kaio-cesar-de-sousa-pinheiro
