@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Academia Dev Python</title>
+    <style>
+        body { font-family: Arial; margin: 0; padding: 0; background: #f5f5f5; }
+        .header { background: #4a5568; color: white; padding: 20px; text-align: center; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .nav { background: white; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .nav a { margin-right: 20px; text-decoration: none; color: #4a5568; }
+        .card { background: white; padding: 20px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card h2 { color: #2d3748; border-bottom: 2px solid #4a5568; padding-bottom: 10px; margin-bottom: 15px; }
+        .stats { display: flex; flex-wrap: wrap; gap: 15px; }
+        .stat-box { background: #f7fafc; padding: 20px; border-radius: 5px; flex: 1; min-width: 200px; border-left: 4px solid #4a5568; }
+        .stat-box h3 { margin: 0 0 10px 0; color: #718096; font-size: 14px; }
+        .stat-box .number { font-size: 32px; font-weight: bold; color: #2d3748; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table th, table td { padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        table th { background: #f7fafc; font-weight: bold; }
+        .badge { display: inline-block; padding: 5px 10px; border-radius: 3px; font-size: 12px; }
+        .badge-success { background: #c6f6d5; color: #22543d; }
+        .badge-danger { background: #fed7d7; color: #742a2a; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Academia Dev Python</h1>
+        <p>Sistema de Gestão</p>
+    </div>
+    
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/admin/">Admin</a>
+            <a href="/api/">API</a>
+        </div>
+        
+        <div class="card">
+            <h2>Estatísticas Gerais</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Total de Alunos</h3>
+                    <div class="number">{{ total_alunos }}</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Cursos Ativos</h3>
+                    <div class="number">{{ cursos_ativos }}</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Matrículas Totais</h3>
+                    <div class="number">{{ total_matriculas }}</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Matrículas Pagas</h3>
+                    <div class="number">{{ matriculas_pagas }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Resumo Financeiro</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Total Pago</h3>
+                    <div class="number" style="color: #27ae60;">R$ {{ total_pago }}</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Pendente</h3>
+                    <div class="number" style="color: #e74c3c;">R$ {{ total_pendente }}</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Geral</h3>
+                    <div class="number">R$ {{ total_geral }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Alunos Cadastrados</h2>
+            {% if alunos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Data Ingresso</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno in alunos %}
+                    <tr>
+                        <td>{{ aluno.nome }}</td>
+                        <td>{{ aluno.email }}</td>
+                        <td>{{ aluno.data_ingresso|date:"d/m/Y" }}</td>
+                        <td>
+                            {% if aluno.total_devido > 0 %}
+                                <span class="badge badge-danger">Em atraso</span>
+                            {% else %}
+                                <span class="badge badge-success">Em dia</span>
+                            {% endif %}
+                        </td>
+                        <td><a href="/historico/{{ aluno.id }}/">Ver detalhes</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Nenhum aluno cadastrado.</p>
+            {% endif %}
+        </div>
+        
+        <div class="card">
+            <h2>Links da API</h2>
+            <ul>
+                <li><a href="/api/alunos/">API Alunos</a></li>
+                <li><a href="/api/cursos/">API Cursos</a></li>
+                <li><a href="/api/matriculas/">API Matrículas</a></li>
+                <li><a href="/api/relatorios/matriculas-por-curso/">Relatório Matrículas por Curso</a></li>
+                <li><a href="/api/relatorios/devido-por-aluno/">Relatório Devido por Aluno</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
