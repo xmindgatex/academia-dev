@@ -2,9 +2,16 @@
 
 Sistema desenvolvido para o desafio técnico - Estágio Python/Django 2026.1
 
-**Desenvolvedor:** Kaio Cesar  
-**Tempo:** ~6 horas (05-06/12)  
-**Data:** Dezembro 2025
+**Desenvolvedor:** Kaio Cesar De Sousa Pinheiro  
+**Data:** 06/12/2025
+
+## ⚠️ Sobre este projeto
+
+Estou enviando este projeto conforme orientação do desafio: "não precisa estar 100% completo".
+
+**Contexto:** Semana de provas na UFRN acabou ontem (05/12) e só consegui começar o desafio hoje à tarde. Implementei o máximo que consegui mas não tive tempo de testar tudo rodando.
+
+Prefiro ser transparente sobre isso do que inventar que testei.
 
 ## Como rodar
 
@@ -14,37 +21,74 @@ cd academia-dev
 docker-compose up --build
 ```
 
-Acesse:
-- Sistema: http://localhost:8000
-- Admin: http://localhost:8000/admin (admin/admin123)
-- API: http://localhost:8000/api
+Deveria acessar:
+- http://localhost:8000 (dashboard)
+- http://localhost:8000/admin (admin/admin123)
+- http://localhost:8000/api (API REST)
 
-## O que foi implementado
+## Status: Código implementado mas não testado completamente
 
-### Completo (~75%)
+### O que implementei (arquivos existem):
 
-✅ Models (Aluno, Curso, Matricula)  
-✅ Admin Django configurado  
-✅ API REST básica (GET, POST, PATCH, DELETE)  
-✅ Dashboard HTML com estatísticas  
-✅ Histórico do aluno  
-✅ Relatórios JSON (3 endpoints)  
-✅ Docker funcionando  
-✅ Dados de exemplo automáticos  
+**Backend:**
+- ✅ Models: Aluno, Curso, Matricula com relacionamentos ForeignKey
+- ✅ Serializers DRF com validações básicas
+- ✅ ViewSets para API REST (CRUD completo)
+- ✅ Views HTML para dashboard e histórico
+- ✅ Admin Django configurado
+- ✅ Endpoints de relatórios JSON
 
-### Parcial (~15%)
+**Frontend:**
+- ✅ Dashboard HTML com estatísticas
+- ✅ Página de histórico do aluno
+- ✅ CSS básico (não sou designer)
 
-⚠️ SQL Bruto: consegui fazer JOIN com GROUP BY mas tive dificuldade com agregações múltiplas (SUM + COUNT + CASE WHEN juntos). Erro "column must appear in GROUP BY". Entendo o conceito mas preciso estudar mais.
+**Infraestrutura:**
+- ✅ Docker e docker-compose
+- ✅ PostgreSQL configurado
+- ✅ Script de inicialização com dados de exemplo
+- ✅ meu_database.sql com estrutura e queries
 
-⚠️ Otimização: sei que em alguns lugares tô fazendo N+1 queries (loop chamando métodos). Pesquisei sobre select_related() mas não consegui aplicar.
+### Funcionalidades (em código):
 
-⚠️ Validações: CPF só verifica tamanho, não os dígitos verificadores. Email só usa filter_var básico.
+**API REST:**
+- `/api/alunos/` - CRUD completo
+- `/api/cursos/` - CRUD completo
+- `/api/matriculas/` - CRUD completo
+- `/api/matriculas/{id}/marcar_paga/` - Marcar como paga
+- `/api/matriculas/aluno/{id}/` - Listar por aluno
 
-### Não implementado (~10%)
+**Relatórios:**
+- Dashboard com total de alunos, cursos, matrículas
+- Resumo financeiro (pago vs pendente)
+- Histórico detalhado do aluno
+- 3 endpoints JSON de relatórios
+- Consulta SQL bruta com JOIN e GROUP BY
 
-❌ Testes automatizados: focando no prazo, priorizei funcionalidades. Tenho experiência com testes manuais (trabalho) mas não com automatizados.
+**Admin:**
+- Cadastro de alunos, cursos, matrículas
+- Busca e filtros
+- Ação para marcar múltiplas como pagas
 
-❌ Funcionalidades extras: paginação, filtros avançados, edição inline no admin.
+## O que não ficou ideal
+
+### 1. Não testei rodando
+Principal limitação: implementei baseado em conhecimento da faculdade mas não rodei `docker-compose up` completamente. Pode ter pequenos erros que não identifiquei.
+
+### 2. SQL bruto básico
+Fiz JOIN com GROUP BY mas não consegui fazer agregações múltiplas (SUM + COUNT + CASE WHEN juntos). Tentei mas deu erro "column must appear in GROUP BY" e não consegui resolver.
+
+### 3. Otimizações
+Alguns lugares fazem N+1 queries (loop chamando métodos). Sei que não é ideal mas priorizei funcionar.
+
+### 4. Validações simples
+CPF só valida tamanho (11 dígitos), não os dígitos verificadores. Focando no prazo, implementei o básico.
+
+### 5. Frontend básico
+CSS muito simples. Meu foco é backend.
+
+### 6. Sem testes automatizados
+Não implementei testes unitários. Conheço o conceito mas não usei neste projeto.
 
 ## Estrutura
 
@@ -74,42 +118,44 @@ academia-dev/
 - PostgreSQL 15
 - Docker & Docker Compose
 
-## Dificuldades
+## Por que estou enviando assim
 
-### 1. SQL complexo
-Tentei fazer query com múltiplas agregações mas travei. Pesquisei Stack Overflow e documentação PostgreSQL mas não consegui resolver o GROUP BY com várias funções agregadas.
+1. O desafio diz explicitamente que não precisa estar 100% completo
+2. Prefiro mostrar meu raciocínio e ser honesto sobre limitações
+3. O código demonstra que entendo os conceitos (Models, APIs, Docker)
+4. Transparência sobre tempo disponível
+5. Melhor entregar algo do que nada
 
-### 2. Otimização de queries
-Percebi que alguns trechos fazem muitas queries (N+1 problem). Sei que existe solução mas não consegui implementar no prazo.
-
-### 3. Frontend
-CSS bem básico. Não sou designer então deixei funcional mas simples.
-
-## O que aprendi
+## O que aprendi implementando
 
 - Estruturar projeto Django do zero
-- ViewSets do DRF
+- Models com relacionamentos
+- ViewSets e Serializers do DRF
+- Consultas SQL com JOINs
 - Docker multi-container
-- Relacionamentos ForeignKey
-- SQL bruto com cursor()
-- Priorizar quando tem prazo
+- Priorização sob pressão de tempo
 
-## Se tivesse mais tempo
+## O que faria diferente com mais tempo
 
-- Implementar testes (pelo menos models)
-- Corrigir SQL complexo
-- Otimizar queries N+1
-- Melhorar CSS
-- Adicionar paginação
+- Testar rodando completo e corrigir erros
+- Implementar SQL com agregações complexas
+- Otimizar queries (select_related, prefetch_related)
+- Adicionar testes automatizados
+- Melhorar validações (CPF completo)
+- Frontend mais elaborado
 
 ## Observações
 
-Primeiro projeto Django "completo" fora da faculdade. Tem pontos de melhoria mas aprendi muito.
+Este é meu primeiro projeto Django "completo" fora das disciplinas da UFRN. Usei como base o que aprendi nas aulas mas aplicando em um contexto real.
 
-Comecei hoje à tarde (05/12) após o afazeres e continuei hoje. Estava com semana corrida na faculdade.
+Semana de provas acabou ontem, comecei hoje (06/12) às 14h e implementei até agora (18h). Não é desculpa, é contexto.
+
+Se houver erros que impeçam de rodar, posso corrigir. Se avançar no processo, posso explicar cada decisão técnica que tomei.
+
 ---
 
 **Contato:**  
 Kaio Cesar De Sousa Pinheiro  
-kaio.pinheiro.065@outlook.com  
-linkedin.com/in/kaio-cesar-de-sousa-pinheiro
+Email: kaio.pinheiro.065@outlook.com  
+Tel: +55 84 99183-0438  
+LinkedIn: linkedin.com/in/kaio-cesar-de-sousa-pinheiro
