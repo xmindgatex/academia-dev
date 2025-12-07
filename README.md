@@ -7,11 +7,11 @@ Sistema desenvolvido para o desafio técnico - Estágio Python/Django 2026.1
 
 ## ⚠️ Sobre este projeto
 
-Estou enviando este projeto conforme orientação do desafio: "não precisa estar 100% completo".
+Conforme orientação do desafio: "_Nenhuma das funcionalidades propostas no desafio é indispensável, então não deixe de enviar seu código, por mais incompleto que ele esteja_".
 
-**Contexto:** Semana de provas na UFRN acabou ontem (05/12) e só consegui começar o desafio hoje à tarde. Implementei o máximo que consegui mas não tive tempo de testar tudo rodando.
+**Contexto:** Semana de provas na UFRN acabou ontem (05/12). Comecei o desafio hoje à tarde e implementei o máximo possível, priorizando demonstrar raciocínio e estrutura.
 
-Prefiro ser transparente sobre isso do que inventar que testei.
+**Status:** Código implementado mas não testado completamente por limitação de tempo.
 
 ## Como rodar
 
@@ -118,13 +118,15 @@ academia-dev/
 - PostgreSQL 15
 - Docker & Docker Compose
 
-## Por que estou enviando assim
+## Decisão de enviar neste estado
 
-1. O desafio diz explicitamente que não precisa estar 100% completo
-2. Prefiro mostrar meu raciocínio e ser honesto sobre limitações
-3. O código demonstra que entendo os conceitos (Models, APIs, Docker)
-4. Transparência sobre tempo disponível
-5. Melhor entregar algo do que nada
+Conforme o desafio: "_por mais incompleto que ele esteja, tudo será levado em consideração_".
+
+Prioridades que segui:
+1. **Estrutura** antes de perfeição - demonstrar arquitetura
+2. **Conceitos** antes de testes - mostrar que entendo
+3. **Honestidade** antes de inventar - transparência sobre limitações
+4. **Enviar** antes de desistir - código incompleto > sem código
 
 ## O que aprendi implementando
 
